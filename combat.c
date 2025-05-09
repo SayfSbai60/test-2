@@ -316,7 +316,7 @@ void combat_pve_simple(Equipe equipe_joueur, Equipe equipe_ia) {
     liberer_equipe(equipe_ia);
     break;
     }
-    else if(verifier_equipe_ko(equipe_ia){
+    else if(verifier_equipe_ko(equipe_ia)){
     printf("Vous avez gagne !");
     liberer_equipe(equipe_joueur);
     liberer_equipe(equipe_ia);
