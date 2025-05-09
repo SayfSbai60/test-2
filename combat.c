@@ -308,25 +308,24 @@ void combat_pve_simple(Equipe equipe_joueur, Equipe equipe_ia) {
            
             attaque_de_base_pnj(attaquant_ia, &equipe_joueur);
         }
+    }
     
 
     if(verifier_equipe_ko(equipe_joueur)){
     printf("L'ennemie a gagne !");
-    liberer_equipe(equipe_joueur);
-    liberer_equipe(equipe_ia);
-    break;
+    
     }
     else if(verifier_equipe_ko(equipe_ia)){
     printf("Vous avez gagne !");
-    liberer_equipe(equipe_joueur);
-    liberer_equipe(equipe_ia);
-    break;
+    
     }
     else if(tour == MAX_TOURS){
     printf("Egalite, nombre de tour maximum atteint !");
-    liberer_equipe(equipe_joueur);
-    liberer_equipe(equipe_ia);
-    break;
+   
+    
     }
     
+    liberer_equipe(equipe_joueur);
+    liberer_equipe(equipe_ia);
+    menu_principal();
     }
