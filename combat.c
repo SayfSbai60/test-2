@@ -279,7 +279,7 @@ void combat_pve_simple(Equipe equipe_joueur, Equipe equipe_ia) {
     const int MAX_TOURS = 100;
 
     printf("\n=== MODE PVE ===\n");
-    printf("L'IA agit toute seule!\n");
+    
 
     while (!verifier_equipe_ko(equipe_joueur) && !verifier_equipe_ko(equipe_ia) && tour <= MAX_TOURS) {
         printf("\n--- TOUR %d ---\n", tour++);
@@ -308,11 +308,25 @@ void combat_pve_simple(Equipe equipe_joueur, Equipe equipe_ia) {
            
             attaque_de_base_pnj(attaquant_ia, &equipe_joueur);
         }
-    }
+    
 
-    printf(verifier_equipe_ko(equipe_joueur) ? "\nL'IA a gagne!\n" : "\nVous avez gagne!\n");
-    menu_principal();
-
+    if(verifier_equipe_ko(equipe_joueur)){
+    printf("L'ennemie a gagne !");
     liberer_equipe(equipe_joueur);
     liberer_equipe(equipe_ia);
-}
+    break;
+    }
+    else if(verifier_equipe_ko(equipe_ia){
+    printf("Vous avez gagne !");
+    liberer_equipe(equipe_joueur);
+    liberer_equipe(equipe_ia);
+    break;
+    }
+    else if(tour == MAX_TOURS){
+    printf("Egalite, nombre de tour maximum atteint !");
+    liberer_equipe(equipe_joueur);
+    liberer_equipe(equipe_ia);
+    break;
+    }
+    
+    }
