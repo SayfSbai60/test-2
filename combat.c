@@ -280,21 +280,24 @@ void combat_pve_simple(Equipe equipe_joueur, Equipe equipe_ia) {
 
     printf("\n=== MODE PVE ===\n");
     
-
     while (!verifier_equipe_ko(equipe_joueur) && !verifier_equipe_ko(equipe_ia) && tour <= MAX_TOURS) {
         printf("\n--- TOUR %d ---\n", tour++);
         afficher_combat(equipe_joueur, equipe_ia);
 
-       
+        // Tour du joueur
         if (!verifier_equipe_ko(equipe_ia)) {
             printf("\n[VOTRE TOUR]\n");
             jouer_tour(&equipe_joueur, &equipe_ia);
+            
+            // Vérifier si l'IA est K.O. après le tour du joueur
+            if (verifier_equipe_ko(equipe_ia)) {
+                break; // Sortir de la boucle si l'IA est K.O.
+            }
         }
 
-       
+        // Tour de l'IA
         if (!verifier_equipe_ko(equipe_joueur)) {
             printf("\n[TOUR IA AUTONOME]\n");
-            
             
             Combattant* attaquant_ia = NULL;
             do {
@@ -305,27 +308,27 @@ void combat_pve_simple(Equipe equipe_joueur, Equipe equipe_ia) {
                 }
             } while (attaquant_ia == NULL || attaquant_ia->pv <= 0);
 
-           
             attaque_de_base_pnj(attaquant_ia, &equipe_joueur);
+            
+            // Vérifier si le joueur est K.O. après le tour de l'IA
+            if (verifier_equipe_ko(equipe_joueur)) {
+                break; // Sortir de la boucle si le joueur est K.O.
+            }
         }
     }
     
-
-    if(verifier_equipe_ko(equipe_joueur)){
-    printf("L'ennemie a gagne !");
-    
+    // Résultat du combat
+    if(verifier_equipe_ko(equipe_joueur)) {
+        printf("L'ennemie a gagne !\n");
     }
-    else if(verifier_equipe_ko(equipe_ia)){
-    printf("Vous avez gagne !");
-    
+    else if(verifier_equipe_ko(equipe_ia)) {
+        printf("Vous avez gagne !\n");
     }
-    else if(tour == MAX_TOURS){
-    printf("Egalite, nombre de tour maximum atteint !");
-   
-    
+    else if(tour > MAX_TOURS) {
+        printf("Egalite, nombre de tour maximum atteint !\n");
     }
     
     liberer_equipe(equipe_joueur);
     liberer_equipe(equipe_ia);
     menu_principal();
-    }
+}
